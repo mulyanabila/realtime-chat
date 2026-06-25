@@ -18,6 +18,10 @@ return new class extends Migration
               ->constrained()
               ->onDelete('cascade');
 
+        $table->foreignId('receiver_id')
+              ->constrained('users')
+              ->onDelete('cascade');
+
         $table->text('message');
 
         $table->timestamps();

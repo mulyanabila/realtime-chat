@@ -8,7 +8,9 @@ class Message extends Model
 {
     protected $fillable = [
         'user_id',
-        'message'
+        'receiver_id',
+        'message',
+        'is_read'
     ];
 
     public function user()
