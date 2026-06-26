@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
+        'status',
+        'photo',
         'password',
     ];
 
@@ -46,5 +48,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function lastMessage()
+    {
+        return $this->hasOne(
+            Message::class,
+            'user_id'
+        )
+        ->latest();
     }
 }

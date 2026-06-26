@@ -4,6 +4,7 @@
 
 <div class="max-w-5xl mx-auto py-6">
 
+
 {{-- HEADER --}}
 <div
 class="
@@ -38,13 +39,21 @@ items-center
 "
 >
 
-<button class="hover:text-green-600">
+<a
+href="/dashboard"
+class="hover:text-green-600"
+>
 Chat
-</button>
+</a>
 
-<button class="hover:text-green-600">
+
+<a
+href="/contacts"
+class="hover:text-green-600"
+>
 Kontak
-</button>
+</a>
+
 
 <a
 href="/profile"
@@ -52,6 +61,7 @@ class="hover:text-green-600"
 >
 Profil
 </a>
+
 
 <form
 method="POST"
@@ -118,49 +128,10 @@ shadow
 
 @php
 
-$lastMessage=
+$lastMessage =
+$contact->lastMessage;
 
-\App\Models\Message::
-
-where(function($q)
-use($contact){
-
-$q
-->where(
-'user_id',
-auth()->id()
-)
-
-->where(
-'receiver_id',
-$contact->id
-);
-
-})
-
-->orWhere(function($q)
-use($contact){
-
-$q
-->where(
-'user_id',
-$contact->id
-)
-
-->where(
-'receiver_id',
-auth()->id()
-);
-
-})
-
-->latest()
-
-->first();
-
-
-$unread=
-
+$unread =
 \App\Models\Message::
 
 where(
@@ -216,7 +187,38 @@ text-xl
 "
 >
 
-{{ strtoupper(substr($contact->name,0,1)) }}
+            @if($contact->photo)
+
+            <img
+            src="{{ asset('storage/'.$contact->photo) }}"
+            class="
+            w-14
+            h-14
+            rounded-full
+            object-cover
+            ">
+
+            @else
+
+            <div
+            class="
+            w-14
+            h-14
+            rounded-full
+            bg-green-500
+            flex
+            items-center
+            justify-center
+            text-white
+            font-bold
+            "
+            >
+
+            {{ strtoupper(substr($contact->name,0,1)) }}
+
+    </div>
+
+    @endif
 
 </div>
 
@@ -234,6 +236,7 @@ items-start
 >
 
 
+{{-- KIRI --}}
 <div>
 
 <div
@@ -248,15 +251,26 @@ text-lg
 
 </div>
 
+
 <div
 class="
 text-gray-500
 text-sm
+truncate
+max-w-[500px]
 mt-1
 "
 >
 
-{{ $contact->phone }}
+@if($lastMessage)
+
+{{ $lastMessage->message }}
+
+@else
+
+Belum ada pesan
+
+@endif
 
 </div>
 
@@ -273,6 +287,7 @@ items-end
 gap-2
 "
 >
+
 
 <div
 class="
@@ -319,6 +334,10 @@ $lastMessage
 
 @endif
 
+@else
+
+&nbsp;
+
 @endif
 
 </div>
@@ -357,6 +376,7 @@ justify-center
 </a>
 
 @endforeach
+
 
 </div>
 

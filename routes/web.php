@@ -11,62 +11,57 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
 
-Route::get(
-'/dashboard',
-[
-ContactController::class,
-'index'
-])->name(
-'dashboard'
-);
+    // DASHBOARD (CHAT)
+    Route::get(
+        '/dashboard',
+        [ContactController::class, 'index']
+    )->name('dashboard');
 
-Route::get(
-'/profile',
-[
-ProfileController::class,
-'edit'
-])->name(
-'profile.edit'
-);
 
-Route::patch(
-'/profile',
-[
-ProfileController::class,
-'update'
-])->name(
-'profile.update'
-);
+    // HALAMAN KONTAK
+    Route::get(
+        '/contacts',
+        [ContactController::class, 'contacts']
+    )->name('contacts');
 
-Route::delete(
-'/profile',
-[
-ProfileController::class,
-'destroy'
-])->name(
-'profile.destroy'
-);
 
-Route::get(
-'/chat/{id}',
-[
-ChatController::class,
-'index'
-]);
+    Route::post(
+        '/contacts/add',
+        [ContactController::class, 'add']
+    );
 
-Route::post(
-'/chat/send',
-[
-ChatController::class,
-'send'
-]);
+        // HALAMAN PROFIL
+    Route::get(
+        '/profile',
+        [ProfileController::class, 'index']
+    )->name('profile');
 
-Route::post(
-'/contacts/add',
-[
-ContactController::class,
-'add'
-]);
+    // HALAMAN EDIT PROFIL
+    Route::get(
+        '/profile/edit',
+        [ProfileController::class, 'edit']
+    )->name('profile.edit');
+
+    // UPDATE PROFIL
+    Route::patch(
+        '/profile',
+        [ProfileController::class, 'update']
+    )->name('profile.update');
+
+    // HAPUS AKUN
+    Route::delete(
+        '/profile',
+        [ProfileController::class, 'destroy']
+    )->name('profile.destroy');
+        Route::get(
+            '/chat/{id}',
+            [ChatController::class, 'index']
+        );
+
+    Route::post(
+        '/chat/send',
+        [ChatController::class, 'send']
+    );
 
 });
 

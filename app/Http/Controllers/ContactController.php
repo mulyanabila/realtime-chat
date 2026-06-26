@@ -10,51 +10,108 @@ use Illuminate\Support\Facades\Auth;
 class ContactController extends Controller
 {
 
+// DASHBOARD (list chat)
 public function index()
 {
-return view(
-'dashboard',
-[
-'contacts'=>
-\App\Models\User::where(
+
+$contacts =
+
+User::where(
 'id',
 '!=',
-auth::id()
-)->get()
-]
-);
+Auth::id()
+)
+
+->with([
+
+'lastMessage'=>function($q){
+
+$q->latest();
+
 }
 
+])
+
+->get();
+
+return view(
+
+'dashboard',
+
+compact('contacts')
+
+);
+
+}
+
+
+// HALAMAN KONTAK
+public function contacts()
+{
+    $contacts =
+    Contact::where(
+        'user_id',
+        Auth::id()
+    )
+    ->with('contact')
+    ->get();
+
+    return view(
+        'contacts',
+        compact('contacts')
+    );
+}
+
+
+// TAMBAH KONTAK
 public function add(
 Request $request
 ){
 
-$user=
-User::where(
-'phone',
-$request->phone
-)
-->first();
+    $request->validate([
 
-if(
-!$user
-){
+        'name' => 'required',
+        'phone'=>'required'
 
-return back();
+    ]);
 
-}
 
-Contact::create([
+    $user =
+    User::where(
+        'phone',
+        $request->phone
+    )->first();
 
-'user_id'=>
-Auth::id(),
 
-'contact_id'=>
-$user->id
+    if(!$user){
 
-]);
+        return back()
+        ->with(
+            'error',
+            'Nomor tidak ditemukan'
+        );
 
-return back();
+    }
+
+
+    Contact::firstOrCreate(
+
+[
+    'user_id' => Auth::id(),
+    'contact_id' => $user->id
+],
+
+[
+    'name' => $request->name
+]
+
+);
+
+    return back()
+    ->with(
+        'success',
+        'Kontak berhasil ditambahkan'
+    );
 
 }
 

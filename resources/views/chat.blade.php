@@ -15,7 +15,20 @@ class="w-10 h-10 rounded-full bg-white text-[#075E54]
 flex items-center justify-center font-bold"
 >
 
-{{ strtoupper(substr($user->name,0,1)) }}
+            @if($user->photo)
+
+            <img
+            src="{{ asset('storage/'.$user->photo) }}"
+            class="
+            w-10
+            h-10
+            rounded-full
+            object-cover
+            ">
+
+            @else
+
+            {{ strtoupper(substr($user->name,0,1)) }}
 
 </div>
 
@@ -157,7 +170,7 @@ px-6
 "
 >
 
-➤
+send
 
 </button>
 
