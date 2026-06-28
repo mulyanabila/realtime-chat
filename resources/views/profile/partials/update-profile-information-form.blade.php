@@ -34,6 +34,7 @@
             <x-input-label
                 for="photo"
                 :value="__('Foto Profil')"
+                class="text-purple-700 font-semibold"
             />
 
             <div class="mt-3 mb-4">
@@ -42,13 +43,13 @@
 
                     <img
                         src="{{ asset('storage/'.$user->photo) }}"
-                        class="w-28 h-28 rounded-full object-cover border"
+                        class="w-28 h-28 rounded-full object-cover border-2 border-purple-300 shadow"
                     >
 
                 @else
 
                     <div
-                        class="w-28 h-28 rounded-full bg-green-500 flex items-center justify-center text-white text-4xl font-bold"
+                        class="w-28 h-28 rounded-full bg-gradient-to-r from-fuchsia-600 to-violet-700 flex items-center justify-center text-white text-4xl font-bold shadow"
                     >
                         {{ strtoupper(substr($user->name,0,1)) }}
                     </div>
@@ -61,7 +62,7 @@
                 type="file"
                 name="photo"
                 id="photo"
-                class="block w-full border rounded-xl p-3"
+                class="block w-full rounded-xl border border-purple-300 p-3 focus:border-purple-500 focus:ring-purple-500"
             >
 
             <x-input-error
@@ -79,13 +80,14 @@
             <x-input-label
                 for="name"
                 :value="__('Nama')"
+                class="text-purple-700 font-semibold"
             />
 
             <x-text-input
                 id="name"
                 name="name"
                 type="text"
-                class="mt-2 block w-full"
+                class="mt-2 block w-full rounded-xl border-purple-300 focus:border-purple-500 focus:ring-purple-500"
                 :value="old('name',$user->name)"
                 required
                 autofocus
@@ -106,13 +108,14 @@
             <x-input-label
                 for="status"
                 :value="__('Tentang')"
+                class="text-purple-700 font-semibold"
             />
 
             <x-text-input
                 id="status"
                 name="status"
                 type="text"
-                class="mt-2 block w-full"
+                class="mt-2 block w-full rounded-xl border-purple-300 focus:border-purple-500 focus:ring-purple-500"
                 :value="old('status',$user->status)"
             />
 
@@ -131,13 +134,14 @@
             <x-input-label
                 for="phone"
                 :value="__('Telepon')"
+                class="text-purple-700 font-semibold"
             />
 
             <x-text-input
                 id="phone"
                 name="phone"
                 type="text"
-                class="mt-2 block w-full"
+                class="mt-2 block w-full rounded-xl border-purple-300 focus:border-purple-500 focus:ring-purple-500"
                 :value="old('phone',$user->phone)"
             />
 
@@ -156,13 +160,14 @@
             <x-input-label
                 for="email"
                 :value="__('Email')"
+                class="text-purple-700 font-semibold"
             />
 
             <x-text-input
                 id="email"
                 name="email"
                 type="email"
-                class="mt-2 block w-full"
+                class="mt-2 block w-full rounded-xl border-purple-300 focus:border-purple-500 focus:ring-purple-500"
                 :value="old('email',$user->email)"
                 required
             />
@@ -182,7 +187,7 @@
 
                         <button
                             form="send-verification"
-                            class="text-pink-500 underline"
+                            class="text-purple-600 hover:text-purple-800 underline font-medium"
                         >
                             Kirim ulang verifikasi
                         </button>
@@ -209,9 +214,11 @@
                 text-white
                 font-semibold
                 bg-gradient-to-r
-                from-pink-500
-                to-purple-600
+                from-fuchsia-600
+                to-violet-700
                 hover:opacity-90
+                transition
+                shadow-lg
                 "
             >
 
@@ -225,9 +232,9 @@
 
         @if(session('status')=='profile-updated')
 
-            <p class="text-green-600 text-center">
+            <p class="text-center text-purple-700 font-semibold">
 
-                Profil berhasil diperbarui.
+                ✔ Profil berhasil diperbarui.
 
             </p>
 

@@ -1,180 +1,181 @@
 <x-app-layout>
 
-<div class="h-screen flex flex-col bg-[#efeae2]">
+<div class="h-screen flex flex-col bg-violet-50">
 
-{{-- HEADER --}}
-<div class="bg-[#075E54] text-white px-5 py-3 flex items-center">
+    {{-- HEADER --}}
+    <div class="bg-gradient-to-r from-fuchsia-600 to-violet-700 text-white px-5 py-4 flex items-center shadow">
 
-<a href="/dashboard"
-class="mr-4 text-2xl">
-←
-</a>
+        <a
+            href="/dashboard"
+            class="mr-4 text-2xl hover:opacity-80"
+        >
+            ←
+        </a>
 
-<div
-class="w-10 h-10 rounded-full bg-white text-[#075E54]
-flex items-center justify-center font-bold"
->
+        <div
+            class="w-11 h-11 rounded-full bg-white flex items-center justify-center font-bold overflow-hidden text-fuchsia-700"
+        >
 
             @if($user->photo)
 
-            <img
-            src="{{ asset('storage/'.$user->photo) }}"
-            class="
-            w-10
-            h-10
-            rounded-full
-            object-cover
-            ">
+                <img
+                    src="{{ asset('storage/'.$user->photo) }}"
+                    class="w-11 h-11 rounded-full object-cover"
+                >
 
             @else
 
-            {{ strtoupper(substr($user->name,0,1)) }}
+                {{ strtoupper(substr($user->name,0,1)) }}
 
-</div>
+            @endif
 
-<div class="ml-3">
+        </div>
 
-<div class="font-semibold">
+        <div class="ml-3">
 
-{{ $user->name }}
+            <div class="font-semibold text-lg">
+                {{ $user->name }}
+            </div>
 
-</div>
+            <div class="text-sm text-fuchsia-100">
+                Online
+            </div>
 
-<div
-class="text-sm text-green-200"
->
+        </div>
 
-Online
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 
-{{-- CHAT AREA --}}
-<div
-class="flex-1 overflow-y-auto p-4 space-y-3"
->
 
-@foreach($messages as $msg)
+    {{-- CHAT AREA --}}
+    <div
+        class="flex-1 overflow-y-auto p-5 space-y-4"
+    >
 
-<div
-class="flex
-{{ $msg->user_id == auth()->id()
-? 'justify-end'
-: 'justify-start'
-}}"
->
+        @foreach($messages as $msg)
 
-<div
-class="
-max-w-[70%]
-rounded-xl
-px-4
-py-2
-shadow
+            <div
+                class="flex {{ $msg->user_id == auth()->id() ? 'justify-end' : 'justify-start' }}"
+            >
 
-{{ $msg->user_id==auth()->id()
+                <div
+                    class="
+                    max-w-[70%]
+                    rounded-2xl
+                    px-4
+                    py-3
+                    shadow
 
-? 'bg-[#d9fdd3]'
+                    {{ $msg->user_id == auth()->id()
+                        ? 'bg-gradient-to-r from-fuchsia-500 to-violet-600 text-white'
+                        : 'bg-white'
+                    }}
+                    "
+                >
 
-: 'bg-white'
+                    <div>
+                        {{ $msg->message }}
+                    </div>
 
-}}
-"
->
+                    <div
+                        class="
+                        text-xs
+                        mt-2
+                        flex
+                        justify-end
+                        gap-1
 
-<div>
+                        {{ $msg->user_id == auth()->id()
+                            ? 'text-fuchsia-100'
+                            : 'text-gray-500'
+                        }}
+                        "
+                    >
 
-{{ $msg->message }}
+                        {{ $msg->created_at->timezone('Asia/Jakarta')->format('H:i') }}
 
-</div>
+                        @if($msg->user_id == auth()->id())
 
-<div
-class="
-text-xs
-text-gray-500
-mt-1
-flex
-justify-end
-gap-1
-"
->
+                            <span>
+                                ✓✓
+                            </span>
 
-{{ $msg->created_at->timezone('Asia/Jakarta')->format('H:i') }}
+                        @endif
 
-@if($msg->user_id==auth()->id())
+                    </div>
 
-<span>
+                </div>
 
-✓✓
+            </div>
 
-</span>
+        @endforeach
 
-@endif
-
-</div>
-
-</div>
-
-</div>
-
-@endforeach
-
-</div>
+    </div>
 
 
-{{-- INPUT --}}
-<form
-method="POST"
-action="/chat/send"
-class="
-bg-[#f0f2f5]
-p-3
-flex
-gap-2
-"
->
 
-@csrf
+    {{-- INPUT CHAT --}}
+    <form
+        method="POST"
+        action="/chat/send"
+        class="
+        bg-white
+        border-t
+        border-fuchsia-200
+        p-4
+        flex
+        gap-3
+        shadow
+        "
+    >
 
-<input
-type="hidden"
-name="receiver_id"
-value="{{ $user->id }}"
->
+        @csrf
 
-<input
-type="text"
-name="message"
-placeholder="Ketik pesan"
+        <input
+            type="hidden"
+            name="receiver_id"
+            value="{{ $user->id }}"
+        >
 
-class="
-flex-1
-rounded-full
-border
-px-5
-py-3
-outline-none
-"
-/>
+        <input
+            type="text"
+            name="message"
+            placeholder="Ketik pesan..."
+            required
 
-<button
-class="
-bg-[#25D366]
-text-white
-rounded-full
-px-6
-"
->
+            class="
+            flex-1
+            rounded-full
+            border
+            border-fuchsia-300
+            px-5
+            py-3
+            outline-none
+            focus:ring-2
+            focus:ring-fuchsia-500
+            "
+        >
 
-send
+        <button
+            type="submit"
 
-</button>
+            class="
+            bg-gradient-to-r
+            from-fuchsia-600
+            to-violet-700
+            text-white
+            rounded-full
+            px-8
+            hover:opacity-90
+            transition
+            "
+        >
 
-</form>
+            Kirim
+
+        </button>
+
+    </form>
 
 </div>
 

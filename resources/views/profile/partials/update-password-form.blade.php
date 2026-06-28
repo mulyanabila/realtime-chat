@@ -18,20 +18,20 @@
         @method('PUT')
 
 
-
         {{-- PASSWORD LAMA --}}
         <div>
 
             <x-input-label
                 for="update_password_current_password"
                 :value="__('Password Lama')"
+                class="text-purple-700 font-semibold"
             />
 
             <x-text-input
                 id="update_password_current_password"
                 name="current_password"
                 type="password"
-                class="mt-2 block w-full"
+                class="mt-2 block w-full rounded-xl border-purple-300 focus:border-purple-500 focus:ring-purple-500"
                 autocomplete="current-password"
             />
 
@@ -50,13 +50,14 @@
             <x-input-label
                 for="update_password_password"
                 :value="__('Password Baru')"
+                class="text-purple-700 font-semibold"
             />
 
             <x-text-input
                 id="update_password_password"
                 name="password"
                 type="password"
-                class="mt-2 block w-full"
+                class="mt-2 block w-full rounded-xl border-purple-300 focus:border-purple-500 focus:ring-purple-500"
                 autocomplete="new-password"
             />
 
@@ -75,13 +76,14 @@
             <x-input-label
                 for="update_password_password_confirmation"
                 :value="__('Konfirmasi Password Baru')"
+                class="text-purple-700 font-semibold"
             />
 
             <x-text-input
                 id="update_password_password_confirmation"
                 name="password_confirmation"
                 type="password"
-                class="mt-2 block w-full"
+                class="mt-2 block w-full rounded-xl border-purple-300 focus:border-purple-500 focus:ring-purple-500"
                 autocomplete="new-password"
             />
 
@@ -100,15 +102,17 @@
             <button
                 type="submit"
                 class="
-                    w-full
-                    py-3
-                    rounded-xl
-                    text-white
-                    font-semibold
-                    bg-gradient-to-r
-                    from-pink-500
-                    to-purple-600
-                    hover:opacity-90
+                w-full
+                py-3
+                rounded-xl
+                text-white
+                font-semibold
+                bg-gradient-to-r
+                from-fuchsia-600
+                to-violet-700
+                hover:opacity-90
+                transition
+                shadow-lg
                 "
             >
                 Ubah Password
@@ -120,9 +124,9 @@
 
         @if(session('status') === 'password-updated')
 
-            <p class="text-center text-green-600">
+            <p class="text-center text-purple-700 font-semibold">
 
-                Password berhasil diperbarui.
+                ✔ Password berhasil diperbarui.
 
             </p>
 

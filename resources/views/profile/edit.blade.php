@@ -1,58 +1,60 @@
 <x-app-layout>
 
-<div class="max-w-2xl mx-auto py-8">
+<div class="min-h-screen bg-purple-50 py-8">
 
-    {{-- EDIT PROFIL --}}
-    <div class="bg-white rounded-2xl shadow p-8">
+    <div class="max-w-2xl mx-auto">
 
-        <h2 class="text-2xl font-bold mb-6">
-            Edit Profil
-        </h2>
+        {{-- EDIT PROFIL --}}
+        <div class="bg-white rounded-3xl shadow-lg p-8 border border-purple-100">
 
-        @include('profile.partials.update-profile-information-form')
+            <h2 class="text-3xl font-bold text-purple-700 mb-6">
+                Edit Profil
+            </h2>
 
-    </div>
+            @include('profile.partials.update-profile-information-form')
 
-
-
-    {{-- UBAH PASSWORD --}}
-    <div class="bg-white rounded-2xl shadow p-8 mt-8">
-
-        <h2 class="text-2xl font-bold mb-6">
-            Ubah Password
-        </h2>
-
-        @include('profile.partials.update-password-form')
-
-    </div>
+        </div>
 
 
 
-    {{-- LOGOUT & HAPUS AKUN --}}
-    <div class="bg-white rounded-2xl shadow p-8 mt-8">
+        {{-- UBAH PASSWORD --}}
+        <div class="bg-white rounded-3xl shadow-lg p-8 mt-8 border border-purple-100">
 
-    <div class="grid grid-cols-2 gap-5">
+            <h2 class="text-3xl font-bold text-purple-700 mb-6">
+                Ubah Password
+            </h2>
 
-        <form
-            method="POST"
-            action="{{ route('logout') }}"
-        >
-            @csrf
+            @include('profile.partials.update-password-form')
 
-            <button
-                type="submit"
-                class="w-full py-3 rounded-xl bg-gray-300 hover:bg-gray-400"
-            >
-                Logout
-            </button>
+        </div>
 
-        </form>
 
-        @include('profile.partials.delete-user-form')
 
-    </div>
+        {{-- LOGOUT & HAPUS AKUN --}}
+        <div class="bg-white rounded-3xl shadow-lg p-8 mt-8 border border-purple-100">
 
-</div>
+            <div class="grid grid-cols-2 gap-5">
+
+                <form
+                    method="POST"
+                    action="{{ route('logout') }}"
+                >
+                    @csrf
+
+                    <button
+                        type="submit"
+                        class="w-full py-3 rounded-xl bg-purple-300 hover:bg-purple-400 text-white font-semibold transition"
+                    >
+                        Logout
+                    </button>
+
+                </form>
+
+                @include('profile.partials.delete-user-form')
+
+            </div>
+
+        </div>
 
     </div>
 

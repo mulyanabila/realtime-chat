@@ -1,6 +1,6 @@
 <x-app-layout>
 
-<div class="min-h-screen bg-white">
+<div class="min-h-screen bg-violet-50">
 
 <div class="max-w-5xl mx-auto py-6">
 
@@ -10,11 +10,14 @@
 class="
 bg-white
 border-b
+border-fuchsia-200
+shadow-sm
 px-8
 py-5
 flex
 justify-between
 items-center
+rounded-t-3xl
 "
 >
 
@@ -22,7 +25,7 @@ items-center
 class="
 text-3xl
 font-bold
-text-green-600
+text-fuchsia-700
 "
 >
 Chat App
@@ -41,7 +44,7 @@ items-center
 
 <a
 href="/dashboard"
-class="hover:text-green-600"
+class="hover:text-fuchsia-600 transition"
 >
 Chat
 </a>
@@ -49,7 +52,7 @@ Chat
 
 <a
 href="/contacts"
-class="hover:text-green-600"
+class="hover:text-fuchsia-600 transition"
 >
 Kontak
 </a>
@@ -57,7 +60,7 @@ Kontak
 
 <a
 href="/profile"
-class="hover:text-green-600"
+class="hover:text-fuchsia-600 transition"
 >
 Profil
 </a>
@@ -71,7 +74,7 @@ action="{{ route('logout') }}"
 @csrf
 
 <button
-class="hover:text-red-500"
+class="hover:text-fuchsia-600 transition"
 >
 Logout
 </button>
@@ -100,13 +103,16 @@ placeholder="Cari chat..."
 class="
 w-full
 rounded-full
-bg-gray-100
+bg-white
+border
+border-fuchsia-200
 text-black
 px-5
 py-3
 outline-none
 focus:ring-2
-focus:ring-green-500
+focus:ring-fuchsia-500
+focus:border-fuchsia-500
 "
 />
 
@@ -118,9 +124,11 @@ focus:ring-green-500
 <div
 class="
 bg-white
-rounded-xl
+rounded-b-3xl
 overflow-hidden
-shadow
+shadow-md
+border
+border-fuchsia-100
 "
 >
 
@@ -164,20 +172,42 @@ items-center
 gap-4
 p-5
 border-b
-hover:bg-gray-100
+border-fuchsia-100
+hover:bg-fuchsia-50
+hover:scale-[1.01]
 transition
+duration-300
 block
 "
 >
 
 
 {{-- FOTO --}}
+<div>
+
+@if($contact->photo)
+
+<img
+src="{{ asset('storage/'.$contact->photo) }}"
+class="
+w-14
+h-14
+rounded-full
+object-cover
+border-2
+border-fuchsia-300
+">
+
+@else
+
 <div
 class="
 w-14
 h-14
 rounded-full
-bg-green-500
+bg-gradient-to-r
+from-fuchsia-500
+to-violet-600
 flex
 items-center
 justify-center
@@ -187,38 +217,11 @@ text-xl
 "
 >
 
-            @if($contact->photo)
+{{ strtoupper(substr($contact->name,0,1)) }}
 
-            <img
-            src="{{ asset('storage/'.$contact->photo) }}"
-            class="
-            w-14
-            h-14
-            rounded-full
-            object-cover
-            ">
+</div>
 
-            @else
-
-            <div
-            class="
-            w-14
-            h-14
-            rounded-full
-            bg-green-500
-            flex
-            items-center
-            justify-center
-            text-white
-            font-bold
-            "
-            >
-
-            {{ strtoupper(substr($contact->name,0,1)) }}
-
-    </div>
-
-    @endif
+@endif
 
 </div>
 
@@ -242,7 +245,7 @@ items-start
 <div
 class="
 font-semibold
-text-black
+text-gray-800
 text-lg
 "
 >
@@ -254,7 +257,7 @@ text-lg
 
 <div
 class="
-text-gray-500
+text-gray-600
 text-sm
 truncate
 max-w-[500px]
@@ -292,7 +295,7 @@ gap-2
 <div
 class="
 text-sm
-text-gray-400
+text-fuchsia-500
 "
 >
 
@@ -351,12 +354,13 @@ class="
 w-6
 h-6
 rounded-full
-bg-green-500
+bg-fuchsia-600
 text-white
 text-xs
 flex
 items-center
 justify-center
+shadow
 "
 >
 
